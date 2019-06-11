@@ -1,3 +1,23 @@
 from django.db import models
 
-# Create your models here.
+class User(models.Model):
+    name = models.CharField(max_length=255)
+    photo_url = models.CharField(max_length=400)
+    location = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.name
+
+class Category(models.Model):
+    title = models.CharField(max_length=255)
+    
+
+    def __str__(self):
+        return self.title
+
+class Curriculum(models.Model):
+    language = models.CharField(max_length=255)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
+
+    def __str__(self):
+        return self.language
