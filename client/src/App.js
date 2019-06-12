@@ -12,7 +12,7 @@ class App extends Component {
                 <div className="App">
 
                     <div>
-                        <h1>Tunr</h1>
+                        <h1>Study Buddy</h1>
                         <div>
                             <div><Link to="/">All Users</Link></div>
                         </div>
