@@ -26,6 +26,6 @@ urlpatterns = [
     
     path('', views.FrontendAppView.as_view()), #New URL for the index route
     path('api/v1/', include('sb_app.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    # path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls)
 ]

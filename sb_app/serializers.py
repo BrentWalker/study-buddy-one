@@ -15,8 +15,8 @@ class TechnologySerializer(serializers.ModelSerializer):
         fields = ('id', 'language', 'category')
 
 class CategorySerializer(serializers.ModelSerializer):
-    technologys = TechnologySerializer(many=True, read_only=True)
+    technologies = TechnologySerializer(many=True, read_only=True)
     class Meta:
         model = Category
-        fields = ('id', 'title', 'categories')
+        fields = ('id', 'title', 'technologies')
         

@@ -6,7 +6,7 @@ from . import views
 
 router = routers.DefaultRouter()
 router.register('users', views.UserView)
-router.register('technologys', views.TechnologyView)
+router.register('technologies', views.TechnologyView)
 router.register('categories', views.CategoryView)
 
 
