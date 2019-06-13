@@ -2,7 +2,7 @@ from django.db import models
 
 class User(models.Model):
     name = models.CharField(max_length=255)
-    photo_url = models.CharField(max_length=400)
+    age = models.CharField(max_length=400)
     location = models.CharField(max_length=255)
 
     def __str__(self):

@@ -16,12 +16,16 @@ Including another URLconf
 
 
 
-from django.urls import path, include
+from django.conf.urls import include
+from django.urls import path
+
 from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    
     path('', views.FrontendAppView.as_view()), #New URL for the index route
-    path('api/v1', include('sb_app.urls')),
+    path('api/v1/', include('sb_app.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('admin/', admin.site.urls)
 ]
