@@ -1,21 +1,22 @@
 from rest_framework import serializers
 
-from .models import User, Category, Curriculum
+from .models import User, Category, Technology
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'name', 'photo_url', 'location')
+        fields = ('id', 'name', 'age', 'location')
 
 
-class CurriculumSerializer(serializers.ModelSerializer):
+class TechnologySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Curriculum
+        model = Technology
         fields = ('id', 'language', 'category')
 
 class CategorySerializer(serializers.ModelSerializer):
-    curriculums = CurriculumSerializer(many=True, read_only=True)
+    technologys = TechnologySerializer(many=True, read_only=True)
     class Meta:
         model = Category
         fields = ('id', 'title', 'categories')
+        

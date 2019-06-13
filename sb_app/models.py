@@ -15,7 +15,7 @@ class Category(models.Model):
     def __str__(self):
         return self.title
 
-class Curriculum(models.Model):
+class Technology(models.Model):
     language = models.CharField(max_length=255)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='categories')
 

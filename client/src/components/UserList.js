@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class ArtistList extends Component {
+class UserList extends Component {
     state = {
         error: '',
-        artists: []
+        users: []
     }
 
     componentDidMount(){
-        this.fetchArtists();
+        this.fetchUsers();
     }
 
-    fetchArtists = async () => {
+    fetchUsers = async () => {
         try {
-            const res = await axios.get('/api/artists');
-            this.setState({artists: res.data});
+            const res = await axios.get('/api/users');
+            this.setState({users: res.data});
         }
         catch (err) {
             console.log(err)
@@ -29,10 +29,10 @@ class ArtistList extends Component {
         }
         return (
             <div>
-                <h1>All Artists</h1>
-                {this.state.artists.map(artist => (
-                    <div key={artist.id}>
-                        <Link to={`/artist/${artist.id}`} >{artist.name}</Link>
+                <h1>All Users</h1>
+                {this.state.users.map(user => (
+                    <div key={user.id}>
+                        <Link to={`/user/${user.id}`} >{user.name}</Link>
                     </div>
                 ))}
             </div>
@@ -40,4 +40,4 @@ class ArtistList extends Component {
     }
 }
 
-export default ArtistList;
+export default UserList;
