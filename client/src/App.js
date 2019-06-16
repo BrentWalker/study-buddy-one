@@ -15,41 +15,54 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <div className="container">
-        <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <Link to="/" className="navbar-brand">Study Buddy</Link>
+        <div className="container jumbotron">
+          <nav className="navbar navbar-expand-lg navbar bg-dark">
+            <Link to="/" className="navbar-brand">
+              <h2>Study Buddy</h2>
+            </Link>
             <div className="navbar-collapse">
               <ul className="navbar-nav mr-auto">
                 <li className="navbar-item">
-                  <Link to="/users" className="nav-link">Users</Link>
+                  <Link to="/users" className="nav-link">
+                    Users
+                  </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/createUser" className="nav-link">+</Link>
+                  <Link to="/createUser" className="nav-link">
+                    +
+                  </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/technologies" className="nav-link">Technologies</Link>
+                  <Link to="/technologies" className="nav-link">
+                    Technologies
+                  </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/addTechnology" className="nav-link">+</Link>
+                  <Link to="/addTechnology" className="nav-link">
+                    +
+                  </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/categories" className="nav-link">Categories</Link>
+                  <Link to="/categories" className="nav-link">
+                    Categories
+                  </Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/addCategory" className="nav-link">+</Link>
+                  <Link to="/addCategory" className="nav-link">
+                    +
+                  </Link>
                 </li>
               </ul>
             </div>
           </nav>
 
-            {/* <Route path="/home" component={Home} /> */}
-            <Route path="/users" component={AllUsers} />
-            <Route path="/createUser" component={CreateUser} />
-            <Route path="/technologies" component={AllTechnologies} />
-            <Route path="/addTechnology" component={CreateTechnology} />
-            <Route path="/categories" component={AllCategories} />
-            <Route path="/addCategory" component={CreateCategory} />
-     
+          {/* <Route path="/home" component={Home} /> */}
+          <Route path="/users" component={AllUsers} />
+          <Route path="/createUser" component={CreateUser} />
+          <Route path="/technologies" component={AllTechnologies} />
+          <Route path="/addTechnology" component={CreateTechnology} />
+          <Route path="/categories" component={AllCategories} />
+          <Route path="/addCategory" component={CreateCategory} />
         </div>
       </Router>
     );
