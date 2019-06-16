@@ -29,7 +29,7 @@ class CategoryList extends Component {
         }
         return (
             <div>
-                <h1>All Categories yooo</h1>
+                <h3>Categories</h3>
                 {this.state.categories.map(category => (
                     <div key={category.id}>
                         <Link to={`/api/v1/categories/${category.id}`} >{category.title}</Link>

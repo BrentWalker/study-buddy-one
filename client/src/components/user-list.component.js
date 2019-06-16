@@ -29,7 +29,7 @@ class UserList extends Component {
         }
         return (
             <div>
-                <h1>All Users dummy</h1>
+                <h3>Users</h3>
                 {this.state.users.map(user => (
                     <div key={user.id}>
                         <Link to={`/api/v1/users/${user.id}`} >{user.name}</Link>

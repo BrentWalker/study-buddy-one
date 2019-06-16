@@ -29,7 +29,7 @@ class TechnologyList extends Component {
         }
         return (
             <div>
-                <h1>All Technologies dummy</h1>
+                <h3>Technologies</h3>
                 {this.state.technologies.map(technology => (
                     <div key={technology.id}>
                         <Link to={`/api/v1/technologies/${technology.id}`} >{technology.language}</Link>

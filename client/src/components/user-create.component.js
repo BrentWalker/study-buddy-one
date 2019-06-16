@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from 'axios';
+import axios from "axios";
 
 export default class CreateUser extends Component {
   constructor(props) {
@@ -14,7 +14,7 @@ export default class CreateUser extends Component {
     this.state = {
       name: "",
       age: "",
-      location: "",  
+      location: ""
     };
   }
 
@@ -33,7 +33,7 @@ export default class CreateUser extends Component {
       location: e.target.value
     });
   }
-   
+
   onSubmit(e) {
     e.preventDefault();
 
@@ -42,43 +42,47 @@ export default class CreateUser extends Component {
     console.log(`Name: ${this.state.name}`);
     console.log(`Age: ${this.state.age}`);
     console.log(`Location: ${this.state.location}`);
-   
 
     const newUser = {
       name: this.state.name,
       age: this.state.age,
-      location: this.state.location,
-    }
+      location: this.state.location
+    };
 
     // let result;
 
-    axios.post('http://http://localhost:8000/api/v1/users/', newUser)
-    .then(res => {
-      this.setState({
-        complete: true,
-        name: "",
-        age: "",
-        location: "",
-      }, () => console.log(res.data));
-    })
-    .catch(err => {
-      this.setState({
-        complete: false,
-        name: "",
-        age: "",
-        location: "",
+    axios
+      .post("http://http://localhost:8000/api/v1/users/", newUser)
+      .then(res => {
+        this.setState(
+          {
+            complete: true,
+            name: "",
+            age: "",
+            location: ""
+          },
+          () => console.log(res.data)
+        );
+      })
+      .catch(err => {
+        this.setState({
+          complete: false,
+          name: "",
+          age: "",
+          location: ""
+        });
       });
-    });
   }
 
   renderSuccess = () => {
     switch (this.state.complete) {
       case true:
-        return <span>USER CREATED SUCCESSFULLY</span>
+        return <span>USER CREATED SUCCESSFULLY</span>;
       case false:
-        return <span>SOMETHING WENT WRONG</span>
+        return <span>SOMETHING WENT WRONG</span>;
       case undefined:
-        return null
+        return null;
+      default:
     }
   };
 
@@ -89,7 +93,6 @@ export default class CreateUser extends Component {
         <h3>Create New User</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-
             <label>Name: </label>
             <input
               type="text"
@@ -113,7 +116,6 @@ export default class CreateUser extends Component {
               value={this.state.location}
               onChange={this.onChangeLocation}
             />
-
           </div>
           <div className="form-group">
             <input
