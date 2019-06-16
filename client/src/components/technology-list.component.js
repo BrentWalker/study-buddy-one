@@ -2,20 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class UserList extends Component {
+class TechnologyList extends Component {
     state = {
         error: '',
-        users: []
+        technologies: []
     }
 
     componentDidMount(){
-        this.fetchUsers();
+        this.fetchTechnologies();
     }
 
-    fetchUsers = async () => {
+    fetchTechnologies = async () => {
         try {
-            const res = await axios.get('/api/v1//users');
-            this.setState({users: res.data});
+            const res = await axios.get('/api/v1//technologies');
+            this.setState({technologies: res.data});
         }
         catch (err) {
             console.log(err)
@@ -29,10 +29,10 @@ class UserList extends Component {
         }
         return (
             <div>
-                <h1>All Users</h1>
-                {this.state.users.map(user => (
-                    <div key={user.id}>
-                        <Link to={`/api/v1/users/${user.id}`} >{user.name}</Link>
+                <h1>All Technologies dummy</h1>
+                {this.state.technologies.map(technology => (
+                    <div key={technology.id}>
+                        <Link to={`/api/v1/technologies/${technology.id}`} >{technology.language}</Link>
                     </div>
                 ))}
             </div>
@@ -40,4 +40,4 @@ class UserList extends Component {
     }
 }
 
-export default UserList;
+export default TechnologyList;

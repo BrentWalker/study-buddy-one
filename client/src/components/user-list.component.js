@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class User extends Component {
+class UserList extends Component {
     state = {
         error: '',
         users: []
@@ -14,7 +14,7 @@ class User extends Component {
 
     fetchUsers = async () => {
         try {
-            const res = await axios.get('/api/v1//users/id/');
+            const res = await axios.get('/api/v1//users');
             this.setState({users: res.data});
         }
         catch (err) {
@@ -29,10 +29,10 @@ class User extends Component {
         }
         return (
             <div>
-                <h1>All Users</h1>
+                <h1>All Users dummy</h1>
                 {this.state.users.map(user => (
                     <div key={user.id}>
-                        <Link to={`/api/v1/users/id/${user.id}`} >{user.name}</Link>
+                        <Link to={`/api/v1/users/${user.id}`} >{user.name}</Link>
                     </div>
                 ))}
             </div>
@@ -40,4 +40,4 @@ class User extends Component {
     }
 }
 
-export default User;
+export default UserList;
