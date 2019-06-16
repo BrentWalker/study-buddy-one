@@ -6,7 +6,7 @@ export default class CreateUser extends Component {
     super(props);
 
     this.onChangeName = this.onChangeName.bind(this);
-    this.onChangeLoadAge = this.onChangeAge.bind(this);
+    this.onChangeAge = this.onChangeAge.bind(this);
     this.onChangeLocation = this.onChangeLocation.bind(this);
 
     this.onSubmit = this.onSubmit.bind(this);
@@ -92,7 +92,7 @@ export default class CreateUser extends Component {
 
             <label>Name: </label>
             <input
-              type="textr"
+              type="text"
               className="form-control"
               value={this.state.name}
               onChange={this.onChangeName}
@@ -108,7 +108,7 @@ export default class CreateUser extends Component {
 
             <label>Location: </label>
             <input
-              type="number"
+              type="numbertext"
               className="form-control"
               value={this.state.location}
               onChange={this.onChangeLocation}

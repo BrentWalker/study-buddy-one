@@ -30,13 +30,13 @@ class App extends Component {
                   <Link to="/technologies" className="nav-link">Technologies</Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/createTechnology" className="nav-link">+</Link>
+                  <Link to="/addTechnology" className="nav-link">+</Link>
                 </li>
                 <li className="navbar-item">
                   <Link to="/categories" className="nav-link">Categories</Link>
                 </li>
                 <li className="navbar-item">
-                  <Link to="/createCategory" className="nav-link">+</Link>
+                  <Link to="/addCategory" className="nav-link">+</Link>
                 </li>
               </ul>
             </div>
@@ -44,11 +44,11 @@ class App extends Component {
 
             {/* <Route path="/home" component={Home} /> */}
             <Route path="/users" component={AllUsers} />
-            <Route path="/creatUser" component={CreateUser} />
+            <Route path="/createUser" component={CreateUser} />
             <Route path="/technologies" component={AllTechnologies} />
-            <Route path="/createTechnology" component={CreateTechnology} />
+            <Route path="/addTechnology" component={CreateTechnology} />
             <Route path="/categories" component={AllCategories} />
-            <Route path="/createCategory" component={CreateCategory} />
+            <Route path="/addCategory" component={CreateCategory} />
      
         </div>
       </Router>
