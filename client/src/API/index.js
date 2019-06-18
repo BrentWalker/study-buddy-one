@@ -9,7 +9,7 @@ const API = {};
 
   API.users.show = async function(obj) {
     let users = await axios
-      .get(`http://localhost:8000/api/v1/users/${obj._id}`)
+      .get(`http://localhost:4000/api/v1/users/${obj._id}`)
       .then(response => {
         const { data } = response;
         return data;
@@ -41,7 +41,7 @@ const API = {};
     const postRequest = {
       method: "post",
       url: `http://localhost:8000/api/v1/users/update/${_id}`,
-      data,
+      data
     };
     let users = await axios(postRequest)
       .then(response => {
@@ -57,9 +57,8 @@ const API = {};
   API.users.new = async function(data) {
     const postRequest = {
       method: "post",
-      url: `http://localhost:8000/api/v1/users/add/`,
-      data,
-      port: 8000
+      url: `http://localhost:8000/api/v1/users/add`,
+      data
     };
     let users = await axios(postRequest)
       .then(response => {

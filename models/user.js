@@ -4,6 +4,12 @@ const Schema = mongoose.Schema;
 let User = new Schema({
     name: {
         type: String
+    },
+    technology: {
+        type: String
+    },
+    category: {
+        type: String
     }
 });
 

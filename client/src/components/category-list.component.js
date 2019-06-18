@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class NewCategory extends Component {
@@ -9,7 +8,7 @@ class NewCategory extends Component {
         this.onChangeTitle = this.onChangeTitle.bind(this);
 
         this.state = {
-            id: null,
+            _id: null,
           title: ""
         };
       }
@@ -22,9 +21,9 @@ class NewCategory extends Component {
 
     componentDidMount() {
         if (this.props.category) {
-            const { id, title } = this.props.category
+            const { _id, title } = this.props.category
             this.setState({
-                id,
+                _id,
                 title
             })
         }
@@ -64,73 +63,45 @@ class CategoryList extends Component {
     state = {
         error: '',
         edit: false,
-        categories: [
-            {
-                "id": 7,
-                "title": "Functions",
-            },
-            {
-                "id": 6,
-                "title": "RegEx",
-            },
-            {
-                "id": 1,
-                "title": "Methods",
-            },
-            {
-                "id": 3,
-                "title": "Burgers",
-            },
-            {
-                "id": 2,
-                "title": "Fries",
-            }
-        ]
+        categories: []
+    }
+
+    onSave = (e, category) => {
+        e.preventDefault();
+        const { _id, title } = category; 
+        console.log(`Category:`, _id, title)
+        axios
+            .post(`http://localhost:4000/categories/${_id}`, {title})
+            .then(this.fetchCategories)
+            .catch(err => {
+                this.setState({
+                    edit: { _id: -1},
+                    error: err.message
+                });
+            });
     }
 
     onSubmit = (e, category) => {
         e.preventDefault();
-        //console log when submitted
-        console.log(`Category Form Submitted`);
-        console.log(`Title: ${category}`);
-        const { id, title } = category;
-
-        if (id) {
-            console.log('UPDATE TITLE')
-            const updatedCategory = {title};
-            console.log('Updated Category:', id, updatedCategory);
-        } else {
-            console.log("CREATE TITLE")
-            const newCategory = {title};
-        
-            // let result;
-            console.log(`Category:`, newCategory)
-            axios
-                .post("http://localhost:8000/api/v1/categories/", newCategory)
-                .then(res => {
-                    this.setState({
-                            edit: null,
-                            categories: res.data
-                        },
-                        () => console.log(res)
-                    );
-                })
-                .catch(err => {
-                    this.setState({
-                        edit: null,
-                        // error: err.message, 
-                        categories: [ ...this.state.categories, { id: 42, title } ]
-                    },() => {debugger});
+        const { _id, title } = category;
+        const newCategory = {title};
+        axios
+            .post(`http://localhost:4000/categories`, newCategory)
+            .then(this.fetchCategories)
+            .catch(err => {
+                this.setState({
+                    newCategory: false,
+                    edit: { _id: -1},
+                    error: err.message
                 });
-        }
-
+            });
     }
 
     componentDidMount(){
         this.fetchCategories();
     }
 
-    openEdit = async (category) => {
+    openEdit = async () => {
         try {
             this.setState({editCategories: true})
         }
@@ -149,9 +120,18 @@ class CategoryList extends Component {
     }
 
     deleteCategory = async (category) => {
+        const { _id } = category;
         try {
-            // axios.delete
-            this.fetchCategories();
+            axios
+            .delete(`http://localhost:4000/categories/${_id}`)
+            .then(this.fetchCategories)
+            .catch(err => {
+                this.setState({
+                    edit: { _id: -1},
+                    error: err.message
+                });
+            });
+            
         }
         catch (err) {
             console.log(err)
@@ -170,37 +150,13 @@ class CategoryList extends Component {
 
     closeCategory = async () => {
         this.setState({
-            edit: false,
+            edit: { _id: -1},
             newCategory: false,
             selectedCategory: ''
         },
         () => {
             console.log("Category Closed")
         })
-    }
-
-    saveCategory = async (category) => {
-        const data = {
-            title: category.title
-        }
-        console.log("save this new category", data)
-        try {
-            const res = await axios.post('/api/vi//categories', {
-                data
-            });
-            this.setState({});
-            this.setState({
-                edit: '',
-                categories: res.data
-            },
-            () => {
-                console.log("Category Saved")
-            })
-        }
-        catch (err) {
-            console.log(err)
-            // this.setState({error: err.message})
-        }
     }
 
     showCategory = async (category) => {
@@ -225,8 +181,11 @@ class CategoryList extends Component {
 
     fetchCategories = async () => {
         try {
-            const res = await axios.get('/api/v1//categories');
-            this.setState({categories: res.data});
+            const res = await axios.get('http://localhost:4000/categories');
+            this.setState({
+                newCategory: false,
+                edit: { _id: -1 },
+                categories: res.data});
         }
         catch (err) {
             console.log(err)
@@ -238,29 +197,26 @@ class CategoryList extends Component {
         if (this.state.error){
             return <div>{this.state.error}</div>
         }
-        // if (this.state.selectedCategory) {
-        //     return this.state.edit ? <NewCategory category={this.state.selectedCategory} onClose={this.closeCategory} onSubmit={this.saveCategory} /> : <Category category={this.state.selectedCategory} onClose={this.closeCategory} onEdit={this.editCategory} />
-        // }
         return (
             <div>
                 <h3>Categories {this.state.editCategories ? <button onClick={this.closeEdit}><span>done</span></button> : <button onClick={this.openEdit}><span>edit</span></button>}<button onClick={this.newCategory}>+</button></h3>
                 {this.state.categories.map(category => {
-                    const { id, title } = category;
-                    if (id) {
-                            return (
-                                <div key={id}>
-                                    {this.state.edit.id === id
-                                        ? <NewCategory category={category}onClose={this.closeCategory} onSubmit={this.saveCategory} /> 
-                                        : <Category category={category} onClose={this.closeCategory} onEdit={this.editCategory} />}
-                                        {/* <Link onClick={() => this.showCategory(category)}>{category.title}</Link> */}
-                                    {this.state.editCategories ? <button onClick={() => this.deleteCategory(id)}><span>delete</span></button> : null}
-                                </div>
-                            )
-                        } else {
-                            return (
-                                <div>{title}</div>
-                            )
-                        }
+                    console.log(category)
+                    const { _id, title } = category;
+                    if (!!_id) {
+                        return (
+                            <div key={_id}>
+                                {this.state.edit._id === _id
+                                    ? <NewCategory category={category} onClose={this.closeCategory} onSubmit={this.onSave} /> 
+                                    : <Category category={category} onClose={this.closeCategory} onEdit={this.editCategory} />}
+                                {this.state.editCategories ? <button onClick={() => this.deleteCategory(category)}><span>delete</span></button> : null}
+                            </div>
+                        )
+                    } else {
+                        return (
+                            <div>{title}</div>
+                        )
+                    }
                 })}
                 {this.state.newCategory ? <NewCategory onSubmit={this.onSubmit} onClose={this.closeCategory} /> : null}
             </div>

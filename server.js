@@ -40,32 +40,6 @@ connection.once("open", function() {
   console.log("Yooo MongoDB Connected Dog");
 });
 
-// MODELS
-
-/**
- * user
- {
-    id: "number",
-    name: "string"
- }
- */
-
- /**
- * technology
- {
-    id: "number",
-    language: "string"
- }
- */
-
- /**
- * category
- {
-    id: "number",
-    title: "string"
- }
- */
-
 // ROUTES
 
 routes.route("/users").get(function(req, res) {
@@ -77,10 +51,11 @@ routes.route("/users").get(function(req, res) {
     }
   });
 });
-
 routes.route("/users").post(function(req, res) {
   let user = new User(req.body);
   user.name = req.body.name;
+  user.technology = req.body.technology;
+  user.category = req.body.category;
   user
     .save()
     .then(data => {
@@ -90,21 +65,21 @@ routes.route("/users").post(function(req, res) {
       res.status(400).send("adding new contact failed");
     });
 });
-
 routes.route("/users/:id").get(function(req, res) {
   let id = req.params.id;
   User.findById(id, function(err, user) {
     res.json(user);
   });
 });
-
 routes.route("/users/:id").post(function(req, res) {
   User.findById(req.params.id, function(err, user) {
     if (!user) {
       res.status(404).send("user is not found");
     } else {
+      console.log(req.body)
       user.name = req.body.name;
-
+      user.technology = req.body.technology;
+      user.category = req.body.category;
       user
         .save()
         .then(user => {
@@ -116,7 +91,6 @@ routes.route("/users/:id").post(function(req, res) {
     }
   });
 });
-
 routes.route("/users/:id").delete(function(req, res) {
   let id = req.params.id;
   User.findByIdAndRemove(id, function(err, user) {
@@ -127,112 +101,19 @@ routes.route("/users/:id").delete(function(req, res) {
     }
   });
 });
-
-/*
-
-routes.route("/technologies")
-routes.route("/technologies/:id")
-routes.route("/technologies/add")
-routes.route("/technologies/update/:id")
-routes.route("/technologies/delete/:id")
-
-routes.route("/categories")
-routes.route("/categories/:id")
-routes.route("/categories/add")
-routes.route("/categories/update/:id")
-routes.route("/categories/delete/:id")
-
-*/
-
-/*
-routes.route("/loads").get(function(req, res) {
-  Load.find(function(err, loads) {
+routes.route("/technologies").get(function(req, res) {
+  Technology.find(function(err, technologies) {
     if (err) {
       console.log(err);
     } else {
-      res.json(loads);
+      res.json(technologies);
     }
   });
 });
-
-routes.route("/loads/:id").get(function(req, res) {
-  let id = req.params.id;
-  Load.findById(id, function(err, load) {
-    res.json(load);
-  });
-});
-
-routes.route("/loads/add").post(function(req, res) {
-  let load = new Load(req.body);
-  load
-    .save()
-    .then(data => {
-      res.status(200).json(data);
-    })
-    .catch(err => {
-      res.status(400).send("adding new Load failed");
-    });
-});
-
-routes.route("/loads/update/:id").post(function(req, res) {
-  Load.findById(req.params.id, function(err, load) {
-    if (!load) {
-      res.status(404).send("data is not found");
-    } else {
-      load.load_number = req.body.load_number;
-      load.load_driver_name = req.body.load_driver_name;
-      load.load_rate = req.body.load_rate;
-      load.load_tractor_number = req.body.load_tractor_number;
-      load.load_trailer_number = req.body.load_trailer_number;
-      load.load_pu_date = req.body.load_pu_date;
-      load.load_del_date = req.body.load_del_date;
-      load.load_pu_location = req.body.load_pu_location;
-      load.load_del_location = req.body.load_del_location;
-      load.load_completed = req.body.load_completed;
-
-      load
-        .save()
-        .then(load => {
-          res.json(load);
-        })
-        .catch(err => {
-          res.status(400).send("Update Not Done yo!!");
-        });
-    }
-  });
-});
-
-routes.route("/loads/delete/:id").delete(function(req, res) {
-  let id = req.params.id;
-  Load.findByIdAndRemove(id, function(err, load) {
-    if (!load) {
-      res.status(404).send("data is not found");
-    } else {
-      res.status(200).json(load);
-    }
-  });
-});
-
-routes.route("/contacts").get(function(req, res) {
-  Contact.find(function(err, contacts) {
-    if (err) {
-      console.log(err);
-    } else {
-      res.json(contacts);
-    }
-  });
-});
-
-routes.route("/contacts/:id").get(function(req, res) {
-  let id = req.params.id;
-  Contact.findById(id, function(err, contact) {
-    res.json(contact);
-  });
-});
-
-routes.route("/contacts/add").post(function(req, res) {
-  let contact = new Contact(req.body);
-  contact
+routes.route("/technologies").post(function(req, res) {
+  let technology = new Technology(req.body);
+  technology.language = req.body.language;
+  technology
     .save()
     .then(data => {
       res.status(200).json(data);
@@ -241,20 +122,23 @@ routes.route("/contacts/add").post(function(req, res) {
       res.status(400).send("adding new contact failed");
     });
 });
-
-routes.route("/contacts/update/:id").post(function(req, res) {
-  Contact.findById(req.params.id, function(err, contact) {
-    if (!contact) {
-      res.status(404).send("data is not found");
+routes.route("/technologies/:id").get(function(req, res) {
+  let id = req.params.id;
+  Technology.findById(id, function(err, technology) {
+    res.json(technology);
+  });
+});
+routes.route("/technologies/:id").post(function(req, res) {
+  Technology.findById(req.params.id, function(err, technology) {
+    if (!technology) {
+      res.status(404).send("technology is not found");
     } else {
-      contact.contact_name = req.body.contact_name;
-      contact.contact_address = req.body.contact_address;
-      contact.contact_phone = req.body.contact_phone;
+      technology.language = req.body.language;
 
-      contact
+      technology
         .save()
-        .then(contact => {
-          res.json(contact);
+        .then(technology => {
+          res.json(technology);
         })
         .catch(err => {
           res.status(400).send("Update Not Done yo!!");
@@ -262,18 +146,71 @@ routes.route("/contacts/update/:id").post(function(req, res) {
     }
   });
 });
-
-routes.route("/contacts/delete/:id").delete(function(req, res) {
+routes.route("/technologies/:id").delete(function(req, res) {
   let id = req.params.id;
-  Contact.findByIdAndRemove(id, function(err, contact) {
-    if (!contact) {
+  Technology.findByIdAndRemove(id, function(err, technology) {
+    if (!technology) {
       res.status(404).send("data is not found");
     } else {
-      res.status(200).json(contact);
+      res.status(200).json(technology);
     }
   });
 });
-*/
+routes.route("/categories").get(function(req, res) {
+  Category.find(function(err, categories) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.json(categories);
+    }
+  });
+});
+routes.route("/categories").post(function(req, res) {
+  let category = new Category(req.body);
+  category.language = req.body.language;
+  category
+    .save()
+    .then(data => {
+      res.status(200).json(data);
+    })
+    .catch(err => {
+      res.status(400).send("adding new contact failed");
+    });
+});
+routes.route("/categories/:id").get(function(req, res) {
+  let id = req.params.id;
+  Category.findById(id, function(err, category) {
+    res.json(category);
+  });
+});
+routes.route("/categories/:id").post(function(req, res) {
+  Category.findById(req.params.id, function(err, category) {
+    if (!category) {
+      res.status(404).send("category is not found");
+    } else {
+      category.title = req.body.title;
+
+      category
+        .save()
+        .then(category => {
+          res.json(category);
+        })
+        .catch(err => {
+          res.status(400).send("Update Not Done yo!!");
+        });
+    }
+  });
+});
+routes.route("/categories/:id").delete(function(req, res) {
+  let id = req.params.id;
+  Category.findByIdAndRemove(id, function(err, category) {
+    if (!category) {
+      res.status(404).send("data is not found");
+    } else {
+      res.status(200).json(category);
+    }
+  });
+});
 
 app.use("", routes);
 
