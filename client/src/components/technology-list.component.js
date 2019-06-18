@@ -5,7 +5,23 @@ import axios from 'axios';
 class TechnologyList extends Component {
     state = {
         error: '',
-        technologies: []
+        technologies:  [
+            {
+                "id": 7,
+                "language": "Java",
+                "category": 2
+            },
+            {
+                "id": 6,
+                "language": "python",
+                "category": 3
+            },
+            {
+                "id": 1,
+                "language": "javascript",
+                "category": 3
+            }
+        ]
     }
 
     componentDidMount(){
@@ -19,7 +35,7 @@ class TechnologyList extends Component {
         }
         catch (err) {
             console.log(err)
-            this.setState({error: err.message})
+            // this.setState({error: err.message})
         }
     }
 

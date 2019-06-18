@@ -41,7 +41,7 @@ const API = {};
     const postRequest = {
       method: "post",
       url: `http://localhost:8000/api/v1/users/update/${_id}`,
-      data
+      data,
     };
     let users = await axios(postRequest)
       .then(response => {
@@ -57,8 +57,9 @@ const API = {};
   API.users.new = async function(data) {
     const postRequest = {
       method: "post",
-      url: `http://localhost:8000/api/v1/users/add`,
-      data
+      url: `http://localhost:8000/api/v1/users/add/`,
+      data,
+      port: 8000
     };
     let users = await axios(postRequest)
       .then(response => {

@@ -34,7 +34,7 @@ export default class CreateTechnology extends Component {
     // let result;
 
     axios
-      .post("http://http://localhost:8000/api/v1/technologies/", newTechnology)
+      .post("http://localhost:8000/api/v1/technologies/", newTechnology)
       .then(res => {
         this.setState(
           {
