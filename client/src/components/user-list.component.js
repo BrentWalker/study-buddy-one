@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import "bootstrap/dist/css/bootstrap.min.css";
 
 class NewUser extends Component {
     constructor(props) {
@@ -255,7 +256,7 @@ class UserList extends Component {
             return <div>{this.state.error}</div>
         }
         return (
-            <div>
+            <div className="container">
                 <h3>Users {this.state.editUsers ? <button onClick={this.closeEdit}><span>done</span></button> : <button onClick={this.openEdit}><span>edit</span></button>}<button onClick={this.newUser}>+</button></h3>
                 {this.state.users.map(user => {
                     console.log(user)

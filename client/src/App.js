@@ -37,7 +37,7 @@ class App extends Component {
             </div>
           </nav>
 
-          {/* <Route path="/home" component={Home} /> */}
+          
           <Route path="/users" component={AllUsers} />
           <Route path="/technologies" component={AllTechnologies} />
           <Route path="/categories" component={AllCategories} />
